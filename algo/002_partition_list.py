@@ -12,6 +12,29 @@ class ListNode:
         self.val = val
         self.next = next
 
+    @classmethod
+    def from_list(cls, lst):
+        head = None
+        current = None
+        for val in lst:
+            if not head:
+                head = cls(val, None)
+                current = head
+            else:
+                current.next = ListNode(val, None)
+                current = current.next
+
+        return head
+
+    def to_list(self):
+        lst = []
+        head = self
+        while head:
+            lst.append(head.val)
+            head = head.next
+
+        return lst
+
 
 class Solution:
     def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
@@ -55,29 +78,6 @@ class Solution:
             return start_left
 
 
-# Write an assert
-def list_to_linked_list(lst):
-    head = None
-    current = None
-    for val in lst:
-        if not head:
-            head = ListNode(val, None)
-            current = head
-        else:
-            current.next = ListNode(val, None)
-            current = current.next
-    return head
-
-
-def linked_list_to_list(head):
-    lst = []
-    while head:
-        lst.append(head.val)
-        head = head.next
-    return lst
-
-
-assert linked_list_to_list(
-    Solution().partition(list_to_linked_list([1, 4, 3, 2, 5, 2]), 3)
-) == [1, 2, 2, 4, 3, 5]
+list_node = Solution().partition(ListNode.from_list([1, 4, 3, 2, 5, 2]), 3)
+assert list_node and list_node.to_list() == [1, 2, 2, 4, 3, 5]
 print("All tests passed!")
