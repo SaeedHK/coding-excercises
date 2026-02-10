@@ -9,7 +9,7 @@ from threading import Event, Lock, Thread
 from time import sleep
 
 
-class BufferReader:
+class BufferIO:
     def __init__(self, buffer_max_size: int = 10):
         self.buffer = ""
         self.buffer_max_size = buffer_max_size
@@ -62,8 +62,8 @@ stream = [
     "Saeed",
     "Saeed",
 ]
-buffer_reader = BufferReader(buffer_max_size=7)
-with buffer_reader:
+buffer_io = BufferIO(buffer_max_size=7)
+with buffer_io:
     for data in stream:
         sleep(2)
-        buffer_reader.write(data)
+        buffer_io.write(data)
